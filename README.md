@@ -83,5 +83,5 @@ personal_website/
 
 ---
 
-**Author**: Tai-Wei Qiu  
+**Author**: Tai-Wei Ciou
 **Contact**: f12f3f58kkgs4@gmail.com | [GitHub](https://github.com/TaiweiCiou1102)
