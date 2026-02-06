@@ -31,6 +31,10 @@ jobs:
         with:
           version: "latest"
 
+      # Change working directory
+      - name: Change working directory
+        run: cd backend
+
       # Generate requirements.txt within uv
       - name: Generate requirements.txt
         run: uv export --format requirements-txt --no-dev --output-file requirements.txt
@@ -70,6 +74,7 @@ jobs:
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_0CA29E3683164DDE83BFE929C53854F7 }}
           package: release.zip
           app-settings-json: '[{"name": "SCM_DO_BUILD_DURING_DEPLOYMENT", "value": "true"}, {"name": "PYTHON_VERSION", "value": "3.12"}]'
+
 
 
 
