@@ -40,7 +40,7 @@ jobs:
       - name: Zip artifact for deployment
         working-directory: ./backend
         run:  |
-          zip -r release.zip . -x ".git/*" ".github/*" ".venv/*" "uv.lock"
+          zip -r ../release.zip . -x ".git/*" ".github/*" ".venv/*" "uv.lock"
 
       # Upload Artifact
       - name: Upload artifact
@@ -72,6 +72,7 @@ jobs:
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_0CA29E3683164DDE83BFE929C53854F7 }}
           package: release.zip
           app-settings-json: '[{"name": "SCM_DO_BUILD_DURING_DEPLOYMENT", "value": "true"}, {"name": "PYTHON_VERSION", "value": "3.12"}]'
+
 
 
 
