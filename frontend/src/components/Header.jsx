@@ -29,8 +29,9 @@ const Header = ({ profile }) => {
                         {profile.links.map((link, idx) => (
                             <a key={idx} href={link.url} target="_blank" rel="noopener noreferrer" className="hover:text-black transition-colors" title={link.label}>
                                 {link.label === 'Github' && <Github className="w-5 h-5" />}
-                                {link.label === 'LinkedIn' && <Linkedin className="w-5 h-5" />}
-                                {!['Github', 'LinkedIn'].includes(link.label) && <span className="underline">{link.label}</span>}
+                                {/*{link.label === 'LinkedIn' && <Linkedin className="w-5 h-5" />}*/}
+                                {link.label === 'HackMD' && <FileText className="w-5 h-5" />}
+                                {!['Github', 'LinkedIn', 'HackMD'].includes(link.label) && <span className="underline">{link.label}</span>}
                             </a>
                         ))}
                     </div>

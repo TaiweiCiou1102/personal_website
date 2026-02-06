@@ -15,9 +15,11 @@ export const getProfile = async () => {
   }
 };
 
-export const getPdfUrl = (path) => {
+export const getAssetUrl = (path) => {
   if (!path) return "";
   // If absolute URL, return as is (though backend data has relative /static/...)
   if (path.startsWith("http")) return path;
   return `${API_BASE_URL}${path}`;
 };
+
+export const getPdfUrl = getAssetUrl;

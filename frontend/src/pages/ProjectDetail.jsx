@@ -54,7 +54,7 @@ const ProjectDetail = () => {
                 </div>
 
                 <div className="flex-1 bg-slate-200 relative min-h-[80vh]">
-                    {project.type === 'Document/PDF' && project.documentUrl ? (
+                    {(project.type === 'Document/PDF' || project.type === 'Document/HTML') && project.documentUrl ? (
                         <iframe src={fullPdfUrl} className="w-full h-full absolute inset-0 border-0" title={project.title} />
                     ) : (
                         <div className="flex items-center justify-center h-full text-slate-500">

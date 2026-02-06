@@ -29,7 +29,30 @@ personal_website/
 │   │   └── App.jsx
 │   └── vite.config.js
 └── backend/           # FastAPI 後端服務
-    └── main.py
+    ├── pyproject.toml # 專案與依賴配置
+    ├── src/
+    │   └── backend/   # 原始碼
+    │       ├── main.py
+    │       ├── models.py
+    │       └── data.py
+    └── static/        # 靜態資源 (文件/圖片)
+```
+
+## Quick Start
+
+```
+# 前端
+npm install
+npm run dev
+```
+
+# 後端
+```
+# Sync dependencies
+uv sync
+
+# Run server
+uv run uvicorn backend.main:app --host 0.0.0.0 --port 8000 --reload
 ```
 
 **作者**：邱泰瑋  
@@ -69,7 +92,13 @@ personal_website/
 │   │   └── App.jsx
 │   └── vite.config.js
 └── backend/           # FastAPI backend service
-    └── main.py
+    ├── pyproject.toml # Project and dependency config
+    ├── src/
+    │   └── backend/   # Source code
+    │       ├── main.py
+    │       ├── models.py
+    │       └── data.py
+    └── static/        # Static assets (docs/images)
 ```
 
 ## Features

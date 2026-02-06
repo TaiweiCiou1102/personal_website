@@ -1,7 +1,7 @@
 import React from 'react';
 import { Briefcase, GraduationCap, Award, Globe } from 'lucide-react';
 
-const TimelineItem = ({ title, subtitle, period, details, projects, isEducation }) => (
+const TimelineItem = ({ title, subtitle, period, details, link, projects, isEducation }) => (
     <div className="relative pl-8 sm:pl-10 py-10 group first:pt-0 last:pb-0">
         {/* Line & Dot */}
         <div className="flex flex-col items-center absolute left-0 top-0 h-full">
@@ -19,7 +19,20 @@ const TimelineItem = ({ title, subtitle, period, details, projects, isEducation 
             </div>
             <div className="text-lg text-accent font-medium">{subtitle}</div>
 
-            {details && <p className="text-slate-600 leading-relaxed text-sm sm:text-base">{details}</p>}
+            {details && (
+                link ? (
+                    <a
+                        href={link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-slate-600 leading-relaxed text-sm sm:text-base hover:text-accent hover:underline transition-colors block"
+                    >
+                        {details}
+                    </a>
+                ) : (
+                    <p className="text-slate-600 leading-relaxed text-sm sm:text-base">{details}</p>
+                )
+            )}
 
             {projects && projects.length > 0 && (
                 <div className="space-y-6 mt-6">
@@ -85,6 +98,7 @@ const Timeline = ({ experience, education, certifications, languages }) => {
                             subtitle={item.school}
                             period={item.period}
                             details={item.details}
+                            link={item.link}
                             isEducation={true}
                         />
                     ))}

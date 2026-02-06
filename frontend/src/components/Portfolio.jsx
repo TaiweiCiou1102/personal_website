@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { ExternalLink, FileText, Code } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
+import { getAssetUrl } from '../api';
 
 const ProjectCard = ({ project, onClick }) => (
     <motion.div
@@ -14,10 +15,10 @@ const ProjectCard = ({ project, onClick }) => (
     >
         <div className="h-48 bg-slate-100 relative overflow-hidden">
             {project.imageUrl ? (
-                <img src={project.imageUrl} alt={project.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                <img src={getAssetUrl(project.imageUrl)} alt={project.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
             ) : (
                 <div className="w-full h-full flex items-center justify-center bg-slate-50 text-slate-300">
-                    {project.type === 'Document/PDF' ? <FileText className="w-12 h-12" /> : <Code className="w-12 h-12" />}
+                    {project.type.startsWith('Document/') ? <FileText className="w-12 h-12" /> : <Code className="w-12 h-12" />}
                 </div>
             )}
             <div className="absolute top-2 right-2 bg-white/90 backdrop-blur px-2 py-1 rounded text-xs font-semibold text-slate-700 shadow-sm">
@@ -32,7 +33,15 @@ const ProjectCard = ({ project, onClick }) => (
 );
 
 const ProjectModal = ({ project, onClose }) => {
+    const navigate = useNavigate();
     if (!project) return null;
+
+    const handleViewProject = (e) => {
+        if (project.documentUrl) {
+            e.preventDefault();
+            navigate(`/project/${project.id}`);
+        }
+    };
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm animate-in fade-in duration-200">
@@ -42,7 +51,7 @@ const ProjectModal = ({ project, onClose }) => {
                 </button>
 
                 <div className="h-64 bg-slate-100 relative">
-                    {project.imageUrl && <img src={project.imageUrl} alt={project.title} className="w-full h-full object-cover" />}
+                    {project.imageUrl && <img src={getAssetUrl(project.imageUrl)} alt={project.title} className="w-full h-full object-cover" />}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-6">
                         <h2 className="text-2xl font-bold text-white">{project.title}</h2>
                     </div>
@@ -57,8 +66,14 @@ const ProjectModal = ({ project, onClose }) => {
                         {project.description}
                     </p>
 
-                    {project.link && (
-                        <a href={project.link} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center w-full sm:w-auto px-6 py-3 bg-accent text-white font-medium rounded-lg hover:bg-blue-600 transition-colors shadow-sm hover:shadow-md">
+                    {(project.link || project.documentUrl) && (
+                        <a
+                            href={project.link || '#'}
+                            onClick={project.documentUrl ? handleViewProject : undefined}
+                            target={project.documentUrl ? undefined : "_blank"}
+                            rel={project.documentUrl ? undefined : "noopener noreferrer"}
+                            className="inline-flex items-center justify-center w-full sm:w-auto px-6 py-3 bg-blue-500 text-white font-medium rounded-lg hover:bg-blue-600 transition-colors shadow-sm hover:shadow-md"
+                        >
                             View Project <ExternalLink className="w-4 h-4 ml-2" />
                         </a>
                     )}
@@ -73,11 +88,7 @@ const Portfolio = ({ projects }) => {
     const navigate = useNavigate();
 
     const handleProjectClick = (project) => {
-        if (project.type === 'Document/PDF') {
-            navigate(`/project/${project.id}`);
-        } else {
-            setSelectedProject(project);
-        }
+        setSelectedProject(project);
     };
 
     if (!projects) return null;
