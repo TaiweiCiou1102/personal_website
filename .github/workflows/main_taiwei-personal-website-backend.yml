@@ -80,4 +80,6 @@ jobs:
           # 'backend' folder downloaded from artifact becomes wwwroot;
           # gunicorn with uvicorn worker, chdir into src/ so backend package is importable
           package: backend
-          startup-command: "gunicorn -w 4 -k uvicorn.workers.UvicornWorker --chdir src backend.main:app"
+          # startup-command must be set manually in Azure Portal (Configuration → General settings)
+          # because publish-profile auth does not support this parameter.
+          # Command: gunicorn -w 4 -k uvicorn.workers.UvicornWorker --chdir src backend.main:app
