@@ -18,15 +18,16 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # Install python
       - name: Set up Python version
         uses: actions/setup-python@v5
         with:
-          python-version: '3.12'
+          python-version: "3.12"
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: "20"
 
       - name: Build frontend
         working-directory: frontend
@@ -68,14 +69,15 @@ jobs:
         with:
           name: python-app
 
-      - name: 'Deploy to Azure Web App'
+      - name: "Deploy to Azure Web App"
         uses: azure/webapps-deploy@v3
         id: deploy-to-webapp
         with:
-          app-name: 'taiwei-personal-website-backend'
-          slot-name: 'Production'
+          app-name: "taiwei-personal-website-backend"
+          slot-name: "Production"
+
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_0CA29E3683164DDE83BFE929C53854F7 }}
           # 'backend' folder downloaded from artifact becomes wwwroot;
           # gunicorn with uvicorn worker, chdir into src/ so backend package is importable
           package: backend
-          startup-command: 'gunicorn -w 4 -k uvicorn.workers.UvicornWorker --chdir src backend.main:app'
+          startup-command: "gunicorn -w 4 -k uvicorn.workers.UvicornWorker --chdir src backend.main:app"
