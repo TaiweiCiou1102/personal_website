@@ -12,8 +12,7 @@ app = FastAPI()
 origins = [
     "http://localhost:5173",  # Vite default
     "http://localhost:3000",
-    "https://myfirstfastapi.taiweideveloping.work",
-    "http://myfirstfastapi.taiweideveloping.work",
+    "https://taiwei-personal-website-backend-gpfjhvbhdugyehfr.eastasia-01.azurewebsites.net",
 ]
 
 app.add_middleware(
